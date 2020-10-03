@@ -1,0 +1,1 @@
+docker run -d -p 5672:5672 --hostname rabbitmq_local_host --name rabbitmq_local --restart always rabbitmq:3.8.9-alpine
