@@ -1,0 +1,9 @@
+version: '3.7'
+
+services:
+  redis:
+    image: 'redis:latest'
+    container_name: 'redis_local'
+    command: redis-server --requirepass RedisServer123!
+    ports:
+      - '6399:6379'
