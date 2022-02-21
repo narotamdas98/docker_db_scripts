@@ -1,0 +1,51 @@
+version: "3.7"
+services:
+  pg_local:
+    image: postgres:latest
+    container_name: pg_local
+    ports:
+      - "5432:5432"
+    env_file:
+      - ./envs/postgres.env
+    volumes:
+      - pg_local:/var/lib/postgresql/data/
+    restart: unless-stopped
+  mongo_local:
+    image: mongo
+    container_name: mongo_local
+    ports:
+      - 27017:27017
+    env_file:
+      - ./envs/mongo.env
+    volumes:
+      - mongo_local:/data/db
+    # healthcheck:
+
+
+
+    #   test: ["echo 'db.runCommand("ping").ok' | mongo 10.10.10.60:27017/test --quiet"]
+
+
+
+    #   interval: 1m30s
+
+
+
+    #   timeout: 30s
+
+
+
+    #   retries: 3
+
+
+
+    #   start_period: 30s
+    restart: unless-stopped
+volumes:
+  pg_local:
+    name: pg_local
+  mongo_local:
+    name: mongo_local
+networks:
+  db_network:
+    name: db_network
