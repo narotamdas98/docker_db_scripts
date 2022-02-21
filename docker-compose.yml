@@ -20,25 +20,10 @@ services:
     volumes:
       - mongo_local:/data/db
     # healthcheck:
-
-
-
     #   test: ["echo 'db.runCommand("ping").ok' | mongo 10.10.10.60:27017/test --quiet"]
-
-
-
     #   interval: 1m30s
-
-
-
     #   timeout: 30s
-
-
-
     #   retries: 3
-
-
-
     #   start_period: 30s
     restart: unless-stopped
 volumes:
