@@ -11,7 +11,7 @@ services:
       - pg_local:/var/lib/postgresql/data/
     restart: unless-stopped
   mongo_local:
-    image: mongo
+    image: mongo:latest
     container_name: mongo_local
     ports:
       - 27017:27017
@@ -19,33 +19,29 @@ services:
       - ./envs/mongo.env
     volumes:
       - mongo_local:/data/db
-    # healthcheck:
-
-
-
-    #   test: ["echo 'db.runCommand("ping").ok' | mongo 10.10.10.60:27017/test --quiet"]
-
-
-
-    #   interval: 1m30s
-
-
-
-    #   timeout: 30s
-
-
-
-    #   retries: 3
-
-
-
-    #   start_period: 30s
     restart: unless-stopped
+  redis_local:
+    image: redis:latest
+    container_name: 'redis_local'
+    volumes:
+      - "/redis/config/redis.conf:/usr/local/etc/redis/redis.conf"
+    command: redis-server --requirepass pass
+    ports:
+      - "6399:6379"
+  redis_insight_local:
+    image: redislabs/redisinsight:latest
+    container_name: redis_insight_local
+    volumes:
+      - redisinsight:/db
+    ports:
+      - 8001:8001
 volumes:
   pg_local:
     name: pg_local
   mongo_local:
     name: mongo_local
+  redisinsight:
+    name: redisinsight
 networks:
   db_network:
     name: db_network
