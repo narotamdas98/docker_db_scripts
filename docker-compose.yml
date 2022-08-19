@@ -1,47 +1,59 @@
 version: "3.7"
 services:
-  pg_local:
-    image: postgres:latest
-    container_name: pg_local
+  # pg_local:
+  #   image: postgres:latest
+  #   container_name: pg_local
+  #   ports:
+  #     - "5432:5432"
+  #   env_file:
+  #     - ./envs/postgres.env
+  #   volumes:
+  #     - pg_local:/var/lib/postgresql/data/
+  #   restart: unless-stopped
+  mysql_local:
+    image: mysql:latest
+    container_name: mysql_local
     ports:
-      - "5432:5432"
+      - "3306:3306"
     env_file:
-      - ./envs/postgres.env
+      - ./envs/mysql.env
     volumes:
-      - pg_local:/var/lib/postgresql/data/
+      - mysql_local:/var/lib/mysql
     restart: unless-stopped
-  mongo_local:
-    image: mongo:latest
-    container_name: mongo_local
-    ports:
-      - 27017:27017
-    env_file:
-      - ./envs/mongo.env
-    volumes:
-      - mongo_local:/data/db
-    restart: unless-stopped
-  redis_local:
-    image: redis:latest
-    container_name: 'redis_local'
-    volumes:
-      - "/redis/config/redis.conf:/usr/local/etc/redis/redis.conf"
-    command: redis-server --requirepass pass
-    ports:
-      - "6399:6379"
-  redis_insight_local:
-    image: redislabs/redisinsight:latest
-    container_name: redis_insight_local
-    volumes:
-      - redisinsight:/db
-    ports:
-      - 8001:8001
+  # mongo_local:
+  #   image: mongo:latest
+  #   container_name: mongo_local
+  #   ports:
+  #     - 27017:27017
+  #   env_file:
+  #     - ./envs/mongo.env
+  #   volumes:
+  #     - mongo_local:/data/db
+  #   restart: unless-stopped
+  # redis_local:
+  #   image: redis:latest
+  #   container_name: 'redis_local'
+  #   volumes:
+  #     - "/redis/config/redis.conf:/usr/local/etc/redis/redis.conf"
+  #   command: redis-server --requirepass pass
+  #   ports:
+  #     - "6399:6379"
+  # redis_insight_local:
+  #   image: redislabs/redisinsight:latest
+  #   container_name: redis_insight_local
+  #   volumes:
+  #     - redisinsight:/db
+  #   ports:
+  #     - 8001:8001
 volumes:
-  pg_local:
-    name: pg_local
-  mongo_local:
-    name: mongo_local
-  redisinsight:
-    name: redisinsight
+  # pg_local:
+  #   name: pg_local
+  mysql_local:
+    name: mysql_local
+  # mongo_local:
+  #   name: mongo_local
+  # redisinsight:
+  #   name: redisinsight
 networks:
   db_network:
     name: db_network
