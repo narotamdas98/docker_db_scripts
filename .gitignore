@@ -1,3 +1,2 @@
 mysql/data/*
 postgres/pgdata/*
-envs/*
